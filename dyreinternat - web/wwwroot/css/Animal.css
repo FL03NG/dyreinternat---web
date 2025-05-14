@@ -1,0 +1,72 @@
+﻿.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    /* Gradient-baggrund + padding = kant */
+    background: linear-gradient(45deg, #333333, #303030);
+    padding: 6px; /* Kantens tykkelse */
+    border-radius: 12px; /* Bløde hjørner på kanten */
+    /* Flex-opsætning */
+    display: flex;
+    flex-direction: column;
+    width: clamp(280px, 45%, 480px);
+    height: 520px;
+    /* Sørger for, at ydre kant altid flugter */
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        /* Løft kortet en smule */
+        transform: translateY(-10px);
+        /* Styrk skyggen, så det fremstår løftet */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+.card__bg {
+    /* Den hvide indmad */
+    background: #fff;
+    border-radius: 6px; /* 12px (ydre) – 6px (padding) */
+    /* Indholdslayout */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden; /* Billede må ikke stikke udenfor */
+}
+
+.card-img-top {
+    flex: 0 0 55%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    flex: 1 1 45%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card__btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    background: #192862;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+    .card__btn:hover {
+        background: #3498db;
+    }
