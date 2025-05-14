@@ -1,6 +1,7 @@
 using dyreinternat___web.Models;
 using dyreinternat___web.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
@@ -13,6 +14,7 @@ namespace dyreinternat___web.Pages
         
         public List<Animal> Animal = new List<Animal>();
 
+        [BindProperty(SupportsGet = true)]
         //filter
         public string FilterType { get; set; }
         // Søgeord fra brugeren (f.eks. "Garfield")
@@ -22,60 +24,42 @@ namespace dyreinternat___web.Pages
         public void OnGet()
         {
             // 1. Vi laver en liste med alle dyr
-            List<Animal> allAnimals = new List<Animal>();
-            allAnimals.Add(new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"));
-            allAnimals.Add(new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
-            allAnimals.Add(new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"));
-            allAnimals.Add(new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"));
-            allAnimals.Add(new Animal(5, "Egon", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"));
-            allAnimals.Add(new Animal(6, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
-            allAnimals.Add(new Animal(7, "Garfield", "Huskat", "Kat", 4, 4, "Han", "orangecat.jpg"));
-            allAnimals.Add(new Animal(8, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "Cat.jpg"));
+            List<Animal> allAnimals = new List<Animal>
+            { 
+            new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"),
+            new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"),
+            new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"),
+            new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"),
+            new Animal(5, "Egon", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"),
+            new Animal(6, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"),
+            new Animal(7, "Garfield", "Huskat", "Kat", 4, 4, "Han", "orangecat.jpg"),
+            new Animal(8, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "Cat.jpg")
+            };
+            
 
-            // 2. Hvis brugeren har skrevet noget i søgefeltet
-            if (!string.IsNullOrEmpty(SearchTerm))
+            foreach (Animal a in allAnimals)
             {
-                // 3. Vi går igennem alle dyr én for én
-                for (int i = 0; i < allAnimals.Count; i++)
-                {
-                    Animal a = allAnimals[i];
-
-                    // 4. Hvis navnet indeholder det brugeren har søgt efter (uden store/små bogstaver)
-                    if (a.Name.ToLower().Contains(SearchTerm.ToLower()))
-                    {
-                        Animal.Add(a); // Gem det i den liste, vi vil vise
-                    }
-                }
-            }
-            else
-            {
-                // Hvis der ikke er nogen søgning, vis alle dyr
-                for (int i = 0; i < allAnimals.Count; i++)
-                {
-                    Animal.Add(allAnimals[i]);
-                }
-
-            }
-
-            for (int i = 0; i < allAnimals.Count; i++)
-            {
-                Animal a = allAnimals[i];
-
                 bool nameMatch = true;
-                if(!string.IsNullOrEmpty(SearchTerm))
+                // 2. Hvis brugeren har skrevet noget i søgefeltet
+                if (!string.IsNullOrEmpty(SearchTerm))
                 {
+                    // 3. Vi går igennem alle dyr én for én
                     nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
                 }
+
                 bool typeMatch = true;
-                if(!string.IsNullOrEmpty(SearchTerm))
+                if (!string.IsNullOrEmpty(FilterType))
                 {
-                    typeMatch = a.Species.ToLower().Contains(SearchTerm.ToLower());
+                    typeMatch = a.Species.ToLower() == FilterType.ToLower();
                 }
-                if(nameMatch && typeMatch)
+
+                if (nameMatch && typeMatch)
                 {
                     Animal.Add(a);
                 }
             }
+
+           
 
         }
 
