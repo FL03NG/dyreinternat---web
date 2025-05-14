@@ -1,30 +1,45 @@
 ﻿@page
 @model dyreinternat___web.Pages.AnimalsGridModel
-@{
-    <!DOCTYPE html>
-    <html lang="da">
-    <head>
-        <meta charset="UTF-8">
-        <title>Member Grid - Hillerød Sejlklub</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="~/css/Animal.css" />
-    </head>
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Dyreoversigt - Dyreinternat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/Animal.css" />
+</head>
 <body>
     <div class="container">
-            <form method="get">
-                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
-                <button type="submit">Søg</button>
-           
-                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
+        <form method="get">
+            <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
+            <select name="FilterType">
+                <option value="">-- Alle typer --</option>
 
-                <select name="FilterType">
-                    <option value="">-- Alle typer --</option>
-                    <option value="Hund" @(Model.FilterType == "Hund" ? "selected" : "")>Hund</option>
-                    <option value="Kat" @(Model.FilterType == "Kat" ? "selected" : "")>Kat</option>
-                </select>
+                @if (Model.FilterType == "Hund")
+                {
+                    <option value="Hund" selected="selected">Hund</option>
+                }
+                else
+                {
+                    <option value="Hund">Hund</option>
+                }
 
-                <button type="submit">Filtrér</button>
-            </form>
+                @if (Model.FilterType == "Kat")
+                {
+                    <option value="Kat" selected="selected">Kat</option>
+                }
+                else
+                {
+                    <option value="Kat">Kat</option>
+                }
+            </select>
+
+
+
+            <button type="submit">Filtrér</button>
+        </form>
+
         @foreach (var animal in Model.Animal)
         {
             <div class="card">
@@ -33,10 +48,10 @@
                     <div class="card-body">
                         <h5 class="card-title">@animal.Name</h5>
                         <p class="card-text">
-                            @animal.Species
-                            @animal.Race
-                            @animal.Size
-                            @animal.Gender
+                            Art: @animal.Species<br />
+                            Race: @animal.Race<br />
+                            Størrelse: @animal.Size<br />
+                            Køn: @animal.Gender
                         </p>
                     </div>
                 </div>
@@ -45,4 +60,4 @@
     </div>
 </body>
 </html>
-}
+
