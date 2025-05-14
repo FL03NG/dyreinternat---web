@@ -9,8 +9,9 @@
         public int Age { get; set; }
         public int Size { get; set; }
         public string Gender { get; set; }
+        public string ImagePath { get; set; }
 
-        public Animal(int animalID, string name, string race, string species, int age, int size, string gender)
+        public Animal(int animalID, string name, string race, string species, int age, int size, string gender, string imagePath)
         {
             AnimalID = animalID;
             Name = name;
@@ -19,6 +20,7 @@
             Age = age;
             Size = size;
             Gender = gender;
+            ImagePath = imagePath;
         }
     }
 }
