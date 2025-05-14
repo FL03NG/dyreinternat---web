@@ -7,43 +7,27 @@
         <meta charset="UTF-8">
         <title>Member Grid - Hillerød Sejlklub</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="~/css/Rooms.css" />
+        <link rel="stylesheet" href="~/css/Animal.css" />
     </head>
     <body>
         <div class="container">
             @foreach (var animal in Model.animal)
             {
-
-
                 <div class="card">
                     <div class="card__bg">
+                        <img src="~/img/@animal.ImagePath" alt="Billede af @animal.Name" class="card-img-top" />
                         <div class="card-body">
                             <h5 class="card-title">@animal.Name</h5>
-
-
-
+                            <p class="card-text">
+                                @animal.Species
+                                @animal.Race
+                                @animal.Size
+                                @animal.Gender
+                            </p>
                         </div>
                     </div>
                 </div>
             }
-
-            <div class="modal fade" id="bekraeftModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Bekræft Reservation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
-                        </div>
-                        <div class="modal-body" id="modalBodyText">
-                            Er du sikker på, at du vil reservere båden?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuller</button>
-                            <button type="button" class="btn btn-primary" id="bekraeftKnap">Bekræft</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
     </html>

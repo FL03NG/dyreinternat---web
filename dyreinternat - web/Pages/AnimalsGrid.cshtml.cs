@@ -8,60 +8,19 @@ namespace dyreinternat___web.Pages
 {
     public class AnimalsGridModel : PageModel
     {
+        public List<Animal> animal = new List<Animal>();
 
-        public List<Animal> animal { get; set; } = new();
-
-        private readonly string boatFilePathJson;
-
-        public AnimalsGridModel(IWebHostEnvironment environment)
-        {
-            boatFilePathJson = Path.Combine(environment.ContentRootPath, "BoatData.json");
-            Debug.WriteLine($"Boat file path: {boatFilePathJson}"); // Log the file path for debugging
-        }
         public void OnGet()
         {
-            Debug.WriteLine("OnGet method started.");
+            Seed(); // Fylder listen når siden loades
+        }
 
-            // Check if the file exists
-            Debug.WriteLine($"Checking if file exists: {boatFilePathJson}");
-            if (System.IO.File.Exists(boatFilePathJson))
-            {
-                Debug.WriteLine("File found. Reading content...");
-                var json = System.IO.File.ReadAllText(boatFilePathJson);
-
-                // Log the content of the file (optional, avoid for large files)
-                Debug.WriteLine($"File content: {json}");
-
-                if (!string.IsNullOrWhiteSpace(json))
-                {
-                    try
-                    {
-                        // Attempt to deserialize the JSON
-                        Debug.WriteLine("Deserializing JSON...");
-                        animal = JsonSerializer.Deserialize<List<Animal>>(json) ?? new();
-                        Debug.WriteLine($"Deserialization successful. Loaded {animal.Count} boats.");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the exception
-                        Debug.WriteLine($"Error deserializing JSON: {ex.Message}");
-                        Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
-                        animal = new();
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine("File content is empty or whitespace.");
-                    animal = new();
-                }
-            }
-            else
-            {
-                Debug.WriteLine("File not found.");
-                animal = new();
-            }
-
-            Debug.WriteLine("OnGet method completed.");
+        private void Seed()
+        {
+            animal.Add(new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"));
+            animal.Add(new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
+            animal.Add(new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"));
+            animal.Add(new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"));
         }
     }
 }
