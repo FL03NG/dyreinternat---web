@@ -13,9 +13,10 @@
     <div class="container">
         <form method="get">
             <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
+            <button type="submit">Søg</button>
             <select name="FilterType">
+         
                 <option value="">-- Alle typer --</option>
-
                 @if (Model.FilterType == "Hund")
                 {
                     <option value="Hund" selected="selected">Hund</option>
@@ -34,10 +35,11 @@
                     <option value="Kat">Kat</option>
                 }
             </select>
+            <button type="submit">Filtrer</button>
 
 
 
-            <button type="submit">Filtrér</button>
+           
         </form>
 
         @foreach (var animal in Model.Animal)
