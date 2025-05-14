@@ -8,7 +8,7 @@ namespace dyreinternat___web.Repository
 
         public void Add(Animal animal);
 
-        public void Delete(Animal animal);
+        public void Delete(int id);
         
     }
 }
