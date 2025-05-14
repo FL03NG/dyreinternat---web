@@ -1,6 +1,14 @@
-﻿namespace dyreinternat___web.Repository
+﻿using dyreinternat___web.Models;
+
+namespace dyreinternat___web.Repository
 {
     public interface IAnimal
     {
+        public List<Animal> GetAll();
+
+        public void Add(Animal animal);
+
+        public void Delete(Animal animal);
+        
     }
 }
