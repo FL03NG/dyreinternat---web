@@ -1,40 +1,6 @@
 ﻿@page
 @model dyreinternat___web.Pages.AnimalsGridModel
 @{
-    <!DOCTYPE html>
-    <html lang="da">
-    <head>
-        <meta charset="UTF-8">
-        <title>Member Grid - Hillerød Sejlklub</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="~/css/Animal.css" />
-    </head>
-    <body>
-        <div class="container">
-
-            <form method="get">
-                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
-                <button type="submit">Søg</button>
-            </form>
-            @foreach (var animal in Model.Animal)
-            {
-                <div class="card">
-                    <div class="card__bg">
-                        <img src="~/img/@animal.ImagePath" alt="Billede af @animal.Name" class="card-img-top" />
-                        <div class="card-body">
-                            <h5 class="card-title">@animal.Name</h5>
-                            <p class="card-text">
-                                @animal.Species
-                                @animal.Race
-                                @animal.Size
-                                @animal.Gender
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </body>
-    </html>
+   <h1>Dyre Internat</h1>
 }
 

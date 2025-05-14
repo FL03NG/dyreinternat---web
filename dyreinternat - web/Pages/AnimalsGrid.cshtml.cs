@@ -1,15 +1,20 @@
 using dyreinternat___web.Models;
+using dyreinternat___web.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 namespace dyreinternat___web.Pages
 {
     public class AnimalsGridModel : PageModel
     {// Den liste, der vises på siden
+        
         public List<Animal> Animal = new List<Animal>();
 
+        //filter
+        public string FilterType { get; set; }
         // Søgeord fra brugeren (f.eks. "Garfield")
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -22,6 +27,10 @@ namespace dyreinternat___web.Pages
             allAnimals.Add(new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
             allAnimals.Add(new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"));
             allAnimals.Add(new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"));
+            allAnimals.Add(new Animal(5, "Egon", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"));
+            allAnimals.Add(new Animal(6, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
+            allAnimals.Add(new Animal(7, "Garfield", "Huskat", "Kat", 4, 4, "Han", "orangecat.jpg"));
+            allAnimals.Add(new Animal(8, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "Cat.jpg"));
 
             // 2. Hvis brugeren har skrevet noget i søgefeltet
             if (!string.IsNullOrEmpty(SearchTerm))
@@ -45,8 +54,36 @@ namespace dyreinternat___web.Pages
                 {
                     Animal.Add(allAnimals[i]);
                 }
+
             }
+
+            for (int i = 0; i < allAnimals.Count; i++)
+            {
+                Animal a = allAnimals[i];
+
+                bool nameMatch = true;
+                if(!string.IsNullOrEmpty(SearchTerm))
+                {
+                    nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
+                }
+                bool typeMatch = true;
+                if(!string.IsNullOrEmpty(SearchTerm))
+                {
+                    typeMatch = a.Species.ToLower().Contains(SearchTerm.ToLower());
+                }
+                if(nameMatch && typeMatch)
+                {
+                    Animal.Add(a);
+                }
+            }
+
         }
+
+        
+
+        
+        
+
     }
 }
 
