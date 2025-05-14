@@ -36,10 +36,10 @@ namespace dyreinternat___web.Repository
 
         private void Seed()
         {
-            _animals.Add(new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", ""));
-            _animals.Add(new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", ""));
-            _animals.Add(new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", ""));
-            _animals.Add(new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", ""));
+            _animals.Add(new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"));
+            _animals.Add(new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"));
+            _animals.Add(new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"));
+            _animals.Add(new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"));
 
         }
     }
