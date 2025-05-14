@@ -11,25 +11,17 @@
     </head>
     <body>
         <div class="container">
-            @foreach (var boat in Model.Animals)
+            @foreach (var animal in Model.animal)
             {
      
 
                 <div class="card">
                     <div class="card__bg">
-                        <img src="~/img/@boat.Image" alt="Billede af @boat.Name" class="card-img-top" />
                         <div class="card-body">
-                            <h5 class="card-title">@boat.Name</h5>
-                            <p class="card-text">Mål: @boat.Measurement<br />Båd Type: @boat.Type</p>
+                            <h5 class="card-title">@animal.Name</h5>
+                     
 
-                            <!-- Book-knap der åbner modal -->
-                            <button type="button"
-                                    class="card__btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#bekraeftModal"
-                                    data-boat="@boat.Name">
-                                Book
-                            </button>
+                         
                         </div>
                     </div>
                 </div>
