@@ -11,7 +11,12 @@
     </head>
     <body>
         <div class="container">
-            @foreach (var animal in Model.animal)
+
+            <form method="get">
+                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Søg efter navn..." />
+                <button type="submit">Søg</button>
+            </form>
+            @foreach (var animal in Model.Animal)
             {
                 <div class="card">
                     <div class="card__bg">
