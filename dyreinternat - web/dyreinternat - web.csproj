@@ -7,8 +7,4 @@
     <RootNamespace>dyreinternat___web</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
