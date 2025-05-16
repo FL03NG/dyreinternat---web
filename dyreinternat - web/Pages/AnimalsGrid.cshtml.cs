@@ -29,42 +29,72 @@ namespace dyreinternat___web.Pages
         
         public void OnGet()
         {
-            // 1. Vi laver en liste med alle dyr
-            //List<Animal> allAnimals = new List<Animal>
-            //{ 
-            //new Animal(1, "Torben", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"),
-            //new Animal(2, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"),
-            //new Animal(3, "Garfield", "Huskat", "Kat", 4, 4, "Han", "cat.jpg"),
-            //new Animal(4, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "orangeCat.jpg"),
-            //new Animal(5, "Egon", "Bulldog", "Hund", 4, 8, "Han", "bulldog.jpg"),
-            //new Animal(6, "Torbine", "Bulldog", "Hund", 4, 6, "Hun", "bulldog2.jpg"),
-            //new Animal(7, "Garfield", "Huskat", "Kat", 4, 4, "Han", "orangecat.jpg"),
-            //new Animal(8, "Snoop Dogg", "Huskat", "Kat", 4, 5, "Hun", "Cat.jpg")
-            //};
-           
-            
+            Debug.WriteLine("OnGet method started.");
 
-            foreach (Animal a in Animal)
+            // Check if the file exists
+            Debug.WriteLine($"Checking if file exists: {_animalFilePathJson}");
+            if (System.IO.File.Exists(_animalFilePathJson))
             {
-                bool nameMatch = true;
-                // 2. Hvis brugeren har skrevet noget i søgefeltet
-                if (!string.IsNullOrEmpty(SearchTerm))
-                {
-                    // 3. Vi går igennem alle dyr én for én
-                    nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
-                }
+                Debug.WriteLine("File found. Reading content...");
+                var json = System.IO.File.ReadAllText(_animalFilePathJson);
 
-                bool typeMatch = true;
-                if (!string.IsNullOrEmpty(FilterType))
-                {
-                    typeMatch = a.Species.ToLower() == FilterType.ToLower();
-                }
+                // Log the content of the file (optional, avoid for large files)
+                Debug.WriteLine($"File content: {json}");
 
-                if (nameMatch && typeMatch)
+                if (!string.IsNullOrWhiteSpace(json))
                 {
-                    Animal.Add(a);
+                    try
+                    {
+                        // Attempt to deserialize the JSON
+                        Debug.WriteLine("Deserializing JSON...");
+                        Animal = JsonSerializer.Deserialize<List<Animal>>(json) ?? new();
+                        Debug.WriteLine($"Deserialization successful. Loaded {Animal.Count} boats.");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception
+                        Debug.WriteLine($"Error deserializing JSON: {ex.Message}");
+                        Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                        Animal = new();
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("File content is empty or whitespace.");
+                    Animal= new();
                 }
             }
+            else
+            {
+                Debug.WriteLine("File not found.");
+                Animal = new();
+            }
+
+            Debug.WriteLine("OnGet method completed.");
+
+
+
+            //foreach (Animal a in Animal)
+            //{
+            //    bool nameMatch = true;
+            //    // 2. Hvis brugeren har skrevet noget i søgefeltet
+            //    if (!string.IsNullOrEmpty(SearchTerm))
+            //    {
+            //        // 3. Vi går igennem alle dyr én for én
+            //        nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
+            //    }
+
+            //    bool typeMatch = true;
+            //    if (!string.IsNullOrEmpty(FilterType))
+            //    {
+            //        typeMatch = a.Species.ToLower() == FilterType.ToLower();
+            //    }
+
+            //    if (nameMatch && typeMatch)
+            //    {
+            //        Animal.Add(a);
+            //    }
+            //}
 
            
 
