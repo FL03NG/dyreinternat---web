@@ -1,6 +1,6 @@
 ﻿namespace dyreinternat___web.Models
 {
-    //hej med dig 
+    //hej med dig dudu
     public class Animal
     {
         public int AnimalID {  get; set; }
