@@ -7,4 +7,10 @@
     <RootNamespace>dyreinternat___web</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Dyreinternat - library">
+      <HintPath>..\..\..\..\..\..\Library - Dyreinternat\Dyreinternat - library\Dyreinternat - library\bin\Debug\net8.0\Dyreinternat - library.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
