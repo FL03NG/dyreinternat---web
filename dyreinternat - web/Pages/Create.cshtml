@@ -2,4 +2,14 @@
 @model dyreinternat___web.Pages.CreateModel
 @{
 }
-<h1>Create</h1>
+<form method="post">
+	<input type="text" name="ID" asp-for="Animal.AnimalID" placeholder="ID" />
+	<input type="text" name="Name" asp-for="Animal.Name" placeholder="Navn" />
+	<input type="text" name="Race" asp-for="Animal.Race" placeholder="Race" />
+	<input type="text" name="Species" asp-for="Animal.Species" placeholder="dyreart" />
+	<input type="number" name="Age" asp-for="Animal.Age" placeholder="Age" />
+	<input type="number" name="Size" asp-for="Animal.Size" placeholder="Størrelse i kg" />
+	<input type="text" name="Gender" asp-for="Animal.Gender" placeholder="Køn" />
+	<input type="text" name="ImagePath" asp-for="Animal.ImagePath" placeholder="Billede" />
+	<input type="submit" value="Gem">
+</form>

@@ -4,7 +4,7 @@ namespace dyreinternat___web.Repository
 {
     public class AnimalCollection : IAnimal
     {
-        private List<Animal> _animals;
+        public List<Animal> _animals;
 
         public AnimalCollection()
         {

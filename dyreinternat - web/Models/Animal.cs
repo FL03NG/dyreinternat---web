@@ -23,5 +23,10 @@
             Gender = gender;
             ImagePath = imagePath;
         }
+
+        public Animal()
+        {
+
+        }
     }
 }
