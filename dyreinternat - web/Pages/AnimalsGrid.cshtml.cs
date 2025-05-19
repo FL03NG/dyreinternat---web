@@ -1,112 +1,101 @@
 using dyreinternat___library.Models;
-using dyreinternat___library.Repository;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace dyreinternat___web.Pages
 {
     public class AnimalsGridModel : PageModel
-    {// Den liste, der vises på siden
+    {
+        // Liste over alle dyr, der vises på siden
+        public List<Animal> Animal { get; set; } = new List<Animal>();
 
-        public List<Animal> Animal { get; set; } = new();
+        // Sti til JSON-filen med alle dyrene
         private readonly string _animalFilePathJson;
+
+        // Constructor – sætter filstien ud fra projektets rodmappe
         public AnimalsGridModel(IWebHostEnvironment environment)
         {
             _animalFilePathJson = Path.Combine(environment.ContentRootPath, "Animal.Json");
         }
 
+        // Brugeren kan søge efter navn og filtrere på dyretype
         [BindProperty(SupportsGet = true)]
-        //filter
         public string FilterType { get; set; }
-        // Søgeord fra brugeren (f.eks. "Garfield")
+
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        
+        // Dyr som brugeren kan tilføje
+        [BindProperty]
+        public Animal NewAnimal { get; set; } = new Animal();
+
+        // Kører når siden hentes (GET)
         public void OnGet()
         {
-            Debug.WriteLine("OnGet method started.");
+            // Liste til at holde alle læste dyr
+            List<Animal> allAnimals = new List<Animal>();
 
-            // Check if the file exists
-            Debug.WriteLine($"Checking if file exists: {_animalFilePathJson}");
+            // Hvis JSON-filen findes, læs og konverter den til en liste
             if (System.IO.File.Exists(_animalFilePathJson))
             {
-                Debug.WriteLine("File found. Reading content...");
-                var json = System.IO.File.ReadAllText(_animalFilePathJson);
-
-                // Log the content of the file (optional, avoid for large files)
-                Debug.WriteLine($"File content: {json}");
+                string json = System.IO.File.ReadAllText(_animalFilePathJson);
 
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    try
+                    List<Animal>? deserialized = JsonSerializer.Deserialize<List<Animal>>(json);
+                    if (deserialized != null)
                     {
-                        // Attempt to deserialize the JSON
-                        Debug.WriteLine("Deserializing JSON...");
-                        Animal = JsonSerializer.Deserialize<List<Animal>>(json) ?? new();
-                        Debug.WriteLine($"Deserialization successful. Loaded {Animal.Count} boats.");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the exception
-                        Debug.WriteLine($"Error deserializing JSON: {ex.Message}");
-                        Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
-                        Animal = new();
+                        allAnimals = deserialized;
                     }
                 }
-                else
-                {
-                    Debug.WriteLine("File content is empty or whitespace.");
-                    Animal= new();
-                }
             }
-            else
+
+            // Filtrer dyr efter navn og art
+            List<Animal> filteredAnimals = new List<Animal>();
+            foreach (Animal a in allAnimals)
             {
-                Debug.WriteLine("File not found.");
-                Animal = new();
+                bool nameMatch = string.IsNullOrEmpty(SearchTerm) || a.Name.ToLower().Contains(SearchTerm.ToLower());
+                bool typeMatch = string.IsNullOrEmpty(FilterType) || a.Species.ToLower() == FilterType.ToLower();
+
+                if (nameMatch && typeMatch)
+                {
+                    filteredAnimals.Add(a);
+                }
             }
 
-            Debug.WriteLine("OnGet method completed.");
-
-
-
-            foreach (Animal a in Animal)
-            {
-                bool nameMatch = true;
-                 //2. Hvis brugeren har skrevet noget i søgefeltet
-                if (!string.IsNullOrEmpty(SearchTerm))
-                {
-                    // 3. Vi går igennem alle dyr én for én
-                    nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
-                }
-
-                bool typeMatch = true;
-                if (!string.IsNullOrEmpty(FilterType))
-                {
-                    typeMatch = a.Species.ToLower() == FilterType.ToLower();
-                }
-
-                //if (nameMatch && typeMatch)
-                //{
-                //    Animal.Add(a);
-                //}
-            }
-
-
-
+            // Opdater visningslisten
+            Animal = filteredAnimals;
         }
 
-        
+        // Kører når formularen postes (POST)
+        public IActionResult OnPost()
+        {
+            // Læs eksisterende liste
+            List<Animal> animals = new List<Animal>();
 
-        
-        
+            if (System.IO.File.Exists(_animalFilePathJson))
+            {
+                string jsonContent = System.IO.File.ReadAllText(_animalFilePathJson);
+                if (!string.IsNullOrWhiteSpace(jsonContent))
+                {
+                    List<Animal>? deserialized = JsonSerializer.Deserialize<List<Animal>>(jsonContent);
+                    if (deserialized != null)
+                    {
+                        animals = deserialized;
+                    }
+                }
+            }
 
+            // Tilføj det nye dyr fra formularen
+            animals.Add(NewAnimal);
+
+            // Gem den opdaterede liste tilbage til filen
+            string updatedJson = JsonSerializer.Serialize(animals, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(_animalFilePathJson, updatedJson);
+
+            // Genindlæs siden med opdateret liste
+            return RedirectToPage();
+        }
     }
 }
-
-    
-
