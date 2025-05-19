@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Reference Include="Dyreinternat - library">
-      <HintPath>..\..\..\..\..\..\Library - Dyreinternat\Dyreinternat - library\Dyreinternat - library\bin\Debug\net8.0\Dyreinternat - library.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Library - Dyreinternat\Dyreinternat - library\bin\Debug\net8.0\Dyreinternat - library.dll</HintPath>
     </Reference>
   </ItemGroup>
 
