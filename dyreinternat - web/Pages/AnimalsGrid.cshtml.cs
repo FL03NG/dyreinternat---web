@@ -74,29 +74,29 @@ namespace dyreinternat___web.Pages
 
 
 
-            //foreach (Animal a in Animal)
-            //{
-            //    bool nameMatch = true;
-            //    // 2. Hvis brugeren har skrevet noget i søgefeltet
-            //    if (!string.IsNullOrEmpty(SearchTerm))
-            //    {
-            //        // 3. Vi går igennem alle dyr én for én
-            //        nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
-            //    }
+            foreach (Animal a in Animal)
+            {
+                bool nameMatch = true;
+                 //2. Hvis brugeren har skrevet noget i søgefeltet
+                if (!string.IsNullOrEmpty(SearchTerm))
+                {
+                    // 3. Vi går igennem alle dyr én for én
+                    nameMatch = a.Name.ToLower().Contains(SearchTerm.ToLower());
+                }
 
-            //    bool typeMatch = true;
-            //    if (!string.IsNullOrEmpty(FilterType))
-            //    {
-            //        typeMatch = a.Species.ToLower() == FilterType.ToLower();
-            //    }
+                bool typeMatch = true;
+                if (!string.IsNullOrEmpty(FilterType))
+                {
+                    typeMatch = a.Species.ToLower() == FilterType.ToLower();
+                }
 
-            //    if (nameMatch && typeMatch)
-            //    {
-            //        Animal.Add(a);
-            //    }
-            //}
+                //if (nameMatch && typeMatch)
+                //{
+                //    Animal.Add(a);
+                //}
+            }
 
-           
+
 
         }
 
