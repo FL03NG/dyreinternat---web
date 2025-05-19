@@ -1,5 +1,5 @@
-using dyreinternat___web.Models;
-using dyreinternat___web.Repository;
+using dyreinternat___library.Models;
+using dyreinternat___library.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.RazorPages;

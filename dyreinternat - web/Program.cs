@@ -1,5 +1,5 @@
-using dyreinternat___web.Services;
-using dyreinternat___web.Repository;
+using dyreinternat___library.Services;
+using dyreinternat___library.Repository;
 namespace dyreinternat___web
 {
     public class Program
@@ -9,6 +9,7 @@ namespace dyreinternat___web
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddSingleton<IAnimalRepo, AnimalJsonRepo>();
             builder.Services.AddSingleton<AnimalService>();
+           
             
             // Add services to the container.
             builder.Services.AddRazorPages();
