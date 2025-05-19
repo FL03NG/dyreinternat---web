@@ -7,20 +7,23 @@ namespace dyreinternat___web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Dependency injection
             builder.Services.AddSingleton<IAnimalRepo, AnimalJsonRepo>();
             builder.Services.AddSingleton<AnimalService>();
-           
-            
-            // Add services to the container.
+
+            builder.Services.AddSingleton<IActivityRepo, ActivityJsonRepo>(); // repo til aktiviteter
+            builder.Services.AddScoped<ActivityService>(); // service til aktiviteter (scoped er korrekt)
+
+            // Add Razor Pages
             builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -28,11 +31,9 @@ namespace dyreinternat___web
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.MapRazorPages();
-
             app.Run();
         }
     }

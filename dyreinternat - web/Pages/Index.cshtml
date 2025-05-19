@@ -1,6 +1,25 @@
 ﻿@page
-@model dyreinternat___web.Pages.AnimalsGridModel
+@model dyreinternat___web.Pages.IndexModel
 @{
    <h1>Dyre Internat</h1>
 }
+<h2>Aktiviteter</h2>
 
+@if (Model.Activities.Count == 0)
+{
+    <p>Der er ingen planlagte aktiviteter.</p>
+}
+else
+{
+    <ul>
+        @foreach (var activity in Model.Activities)
+        {
+            <li>
+                <strong>@activity.Name</strong><br />
+                @activity.Description<br />
+                Start: @activity.StartTime<br />
+                Slut: @activity.EndTime
+            </li>
+        }
+    </ul>
+}

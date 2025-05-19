@@ -1,0 +1,26 @@
+﻿@page
+@model dyreinternat___web.Pages.ActivityModel
+
+<form method="post" enctype="multipart/form-data">
+    <input type="text" asp-for="NewActivity.Name" placeholder="Navn" />
+    <input type="text" asp-for="NewActivity.Description" placeholder="Brødtekst" />
+    <input type="time" asp-for="NewActivity.StartTime" placeholder="00:00" />
+    <input type="time" asp-for="NewActivity.EndTime" placeholder="00:00" />
+    <input type="submit" value="Gem">
+</form>
+
+@foreach (var activity in Model.ActivityGrid)
+{
+    <div class="card">
+        <div class="card__bg">
+            <div class="card-body">
+                <h5 class="card-title">@activity.Name</h5>
+                <p class="card-text">
+                    Indhold: @activity.Description<br />
+                    Start: @activity.StartTime<br />
+                    Slut: @activity.EndTime<br />
+                </p>
+            </div>
+        </div>
+    </div>
+}
