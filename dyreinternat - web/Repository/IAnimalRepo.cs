@@ -2,12 +2,13 @@
 
 namespace dyreinternat___web.Repository
 {
-    public interface IMember
+    public interface IAnimalRepo
     {
-        public List<MemberAccount> GetAll();
+        public List<Animal> GetAll();
 
-        public void Add(MemberAccount memberAccount);
+        public void Add(Animal animal);
 
         public void Delete(int id);
+        
     }
 }

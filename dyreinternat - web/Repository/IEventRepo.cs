@@ -1,6 +1,6 @@
 ﻿namespace dyreinternat___web.Repository
 {
-    public interface IBlog
+    public interface IEventRepo
     {
     }
 }

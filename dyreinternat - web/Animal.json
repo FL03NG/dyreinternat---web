@@ -1,13 +1,1 @@
-[
-    {
-
-        "AnimalID": 1,
-        "Name": "",
-        "Race": "",
-        "Species": "",
-        "Age": 1,
-        "Size": 1,
-        "Gender": "",
-        "ImagePath": ""
-    }
-]
+[{"AnimalID":1,"Name":"","Race":"","Species":"","Age":1,"Size":1,"Gender":"","ImagePath":""},{"AnimalID":0,"Name":"j","Race":"j","Species":"j","Age":0,"Size":0,"Gender":"j","ImagePath":"j"}]

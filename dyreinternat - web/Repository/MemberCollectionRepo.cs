@@ -2,12 +2,12 @@
 
 namespace dyreinternat___web.Repository
 {
-    public class MemberCollection : IMember
+    public class MemberCollectionRepo : IMemberRepo
     {
 
         private List<MemberAccount> _members;
 
-        public MemberCollection()
+        public MemberCollectionRepo()
         {
             _members = new List<MemberAccount>();
             Seed();

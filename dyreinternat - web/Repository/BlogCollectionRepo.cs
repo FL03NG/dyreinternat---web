@@ -1,6 +1,6 @@
 ﻿namespace dyreinternat___web.Repository
 {
-    public class BookingCollection
+    public class BlogCollectionRepo
     {
     }
 }

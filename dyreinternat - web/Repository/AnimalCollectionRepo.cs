@@ -1,19 +1,22 @@
-﻿using dyreinternat___web.Models;
+﻿
+using System.Diagnostics;
+using dyreinternat___web.Models;
 
 namespace dyreinternat___web.Repository
 {
-    public class AnimalCollection : IAnimal
+    public class AnimalCollectionRepo : IAnimalRepo
     {
         public List<Animal> _animals;
-        //hej
-        public AnimalCollection()
+
+        public AnimalCollectionRepo()
         {
             _animals = new List<Animal>();
-            Seed();
+            
         }
 
-        public void Add(Animal animal)
+        public virtual void Add(Animal animal)
         {
+            Debug.WriteLine("add2");
             _animals.Add(animal);
         }
 
@@ -34,11 +37,7 @@ namespace dyreinternat___web.Repository
             return _animals;
         }
 
-        private void Seed()
-        {
         
-
-        }
 
     }
 }

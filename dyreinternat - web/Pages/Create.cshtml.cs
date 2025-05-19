@@ -28,7 +28,7 @@ namespace dyreinternat___web.Pages
             Debug.WriteLine("test");
             _animalService.Add(Animal);
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/AnimalsGrid");
         }
     }
 }

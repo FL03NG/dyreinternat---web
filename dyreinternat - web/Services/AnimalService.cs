@@ -5,9 +5,9 @@ namespace dyreinternat___web.Services
 {
     public class AnimalService
     {
-        private IAnimal _animalrepo;
+        private IAnimalRepo _animalrepo;
 
-        public AnimalService(IAnimal animalRepo)
+        public AnimalService(IAnimalRepo animalRepo)
         {
             _animalrepo = animalRepo;
         }

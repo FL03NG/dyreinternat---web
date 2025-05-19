@@ -1,12 +1,13 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using dyreinternat___web.Models;
 using dyreinternat___web.Pages;
 
 namespace dyreinternat___web.Repository
 {
-    public class JsonCollection : AnimalCollection
+    public class AnimalJsonRepo : AnimalCollectionRepo
     {
-        public JsonCollection() 
+        public AnimalJsonRepo() 
         {
             LoadFile();
         }
@@ -18,16 +19,20 @@ namespace dyreinternat___web.Repository
             _animals = JsonSerializer.Deserialize<List<Animal>>(json);
         }
 
-        public void Add(Animal animal)
+        public override void Add(Animal animal)
         {
+            Debug.WriteLine("gemmer fil");
             base.Add(animal);
             SaveFile();
+
         }
 
         private void SaveFile()
         {
-            string path = "pets.json";
+            Debug.WriteLine("gemmer fil");
+            string path = "Animal.Json";
             File.WriteAllText(path, JsonSerializer.Serialize(_animals));
         }
+        
     }
 }
