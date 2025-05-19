@@ -9,17 +9,17 @@
 	<input type="time" asp-for="Event.EndTime" placeholder="00:00" />
 	<input type="submit" value="Gem">
 </form>
-@foreach (var event in Model.Event)
+@foreach (var events in Model.Event)
 {
     <div class="card">
         <div class="card__bg">
             
             <div class="card-body">
-                <h5 class="card-title">@event.Name</h5>
+                <h5 class="card-title">@events.Name</h5>
                 <p class="card-text">
-                    Indhold: @event.Description<br/>
-                    Start: @event.StartTime<br />
-                    Slut: @event.SlutTime<br />
+                    Indhold: @events.Description<br/>
+                    Start: @events.StartTime<br />
+                    Slut: @events.SlutTime<br />
                    
                 </p>
             </div>
