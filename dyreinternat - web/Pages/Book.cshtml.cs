@@ -72,13 +72,18 @@ namespace dyreinternat___web.Pages
             }
 
             // Tilføj den nye aktivitet
-            bookings.Add(NewBooking);
+            //bookings.Add(NewBooking);
 
             // Skriv hele listen tilbage til filen
             string updatedJson = JsonSerializer.Serialize(bookings, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_bookingFilePathJson, updatedJson);
 
             return RedirectToPage(); // Genindlæs siden
+        }
+        public IActionResult OnPostDelete(int animalID)
+        {
+            _bookingService.Delete(animalID);
+            return RedirectToPage(); // Refresh page
         }
 
     }

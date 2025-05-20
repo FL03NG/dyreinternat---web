@@ -1,26 +1,18 @@
 [
   {
-    "AnimalID": 0,
-    "Name": null,
-    "StartTime": "0001-01-01T00:00:00",
-    "EndTime": "0001-01-01T00:00:00",
-    "User": null,
-    "Description": null
+    "AnimalID": 2,
+    "Name": "Snoop Dogg",
+    "StartTime": "2025-05-20T06:00:00",
+    "EndTime": "2025-05-20T10:00:00",
+    "User": "Simon",
+    "Description": "G\u00E5tur"
   },
   {
     "AnimalID": 0,
-    "Name": null,
-    "StartTime": "0001-01-01T00:00:00",
-    "EndTime": "0001-01-01T00:00:00",
-    "User": null,
-    "Description": null
-  },
-  {
-    "AnimalID": 0,
-    "Name": null,
-    "StartTime": "0001-01-01T00:00:00",
-    "EndTime": "0001-01-01T00:00:00",
-    "User": null,
-    "Description": null
+    "Name": "Torben",
+    "StartTime": "2025-05-20T05:00:00",
+    "EndTime": "2025-05-20T09:00:00",
+    "User": "Simon",
+    "Description": "G\u00E5tur"
   }
 ]

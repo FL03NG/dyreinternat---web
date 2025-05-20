@@ -3,13 +3,14 @@
 @model dyreinternat___web.Pages.BookModel
 @{
 }
+
 <form method="post" enctype="multipart/form-data">
-    <input type="number" asp-for="Booking.AnimalID" placeholder="ID" />
-    <input type="text" asp-for="Booking.Name" placeholder="Navn" />
-    <input type="text" asp-for="Booking.Description" placeholder="Beskrivelse" />
-    <input type="text" asp-for="Booking.User" placeholder="Bruger" />
-    <input type="time" asp-for="Booking.StartTime" placeholder="00:00" />
-    <input type="time" asp-for="Booking.EndTime" placeholder="00:00" />
+    <input type="number" asp-for="NewBooking.AnimalID" placeholder="ID" />
+    <input type="text" asp-for="NewBooking.Name" placeholder="Navn på dyr" />
+    <input type="text" asp-for="NewBooking.Description" placeholder="Beskrivelse" />
+    <input type="text" asp-for="NewBooking.User" placeholder="Bruger" />
+    <input type="time" asp-for="NewBooking.StartTime" placeholder="00:00" />
+    <input type="time" asp-for="NewBooking.EndTime" placeholder="00:00" />
     <input type="submit" value="Gem">
 </form>
 @foreach (var booking in Model.Bookings)
@@ -22,7 +23,11 @@
                     Beskrivelse af booking: @booking.Description<br/>
                     Bruger: @booking.User<br />
                     Start: @booking.StartTime<br />
-                    Slut: @booking.StartTime<br />
+                    Slut: @booking.EndTime<br />
+                    <form method="post" asp-page-handler="Delete">
+                        <input type="hidden" name="animalID" value="@booking.AnimalID" />
+                        <button type="submit">Slet</button>
+                    </form>
                 </p>
             </div>
         </div>

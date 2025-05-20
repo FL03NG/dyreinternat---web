@@ -69,7 +69,7 @@ namespace dyreinternat___web.Pages
             }
 
             // Tilføj den nye aktivitet
-            activities.Add(NewActivity);
+            //activities.Add(NewActivity);
 
             // Skriv hele listen tilbage til filen
             string updatedJson = JsonSerializer.Serialize(activities, new JsonSerializerOptions { WriteIndented = true });
