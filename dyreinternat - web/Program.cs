@@ -15,6 +15,9 @@ namespace dyreinternat___web
             builder.Services.AddSingleton<IActivityRepo, ActivityJsonRepo>(); // repo til aktiviteter
             builder.Services.AddScoped<ActivityService>(); // service til aktiviteter (scoped er korrekt)
 
+            builder.Services.AddSingleton<IBookingRepo, BookingJsonRepo>();// repo til bookinger
+            builder.Services.AddSingleton<BookingService>(); // service til bookinger
+
             // Add Razor Pages
             builder.Services.AddRazorPages();
 

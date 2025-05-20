@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Dyreinternat - library">
-      <HintPath>..\..\..\..\..\..\Library - Dyreinternat\Dyreinternat - library\bin\Debug\net8.0\Dyreinternat - library.dll</HintPath>
+    <Reference Include="dyreinternat - library">
+      <HintPath>..\..\..\..\..\..\Library - Dyreinternat\Dyreinternat - library\bin\Debug\net8.0\dyreinternat - library.dll</HintPath>
     </Reference>
   </ItemGroup>
 

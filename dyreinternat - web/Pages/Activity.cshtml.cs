@@ -75,7 +75,7 @@ namespace dyreinternat___web.Pages
             string updatedJson = JsonSerializer.Serialize(activities, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_activityFilePathJson, updatedJson);
 
-            return RedirectToPage(); // Genindlæs siden
+            return RedirectToPage("/Index"); // Genindlæs siden
         }
 
 
