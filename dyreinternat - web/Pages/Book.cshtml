@@ -1,22 +1,25 @@
-﻿@page
+﻿
+@page
 @model dyreinternat___web.Pages.BookModel
 @{
 }
 <form method="post" enctype="multipart/form-data">
     <input type="number" asp-for="Booking.AnimalID" placeholder="ID" />
     <input type="text" asp-for="Booking.Name" placeholder="Navn" />
+    <input type="text" asp-for="Booking.Description" placeholder="Beskrivelse" />
     <input type="text" asp-for="Booking.User" placeholder="Bruger" />
     <input type="time" asp-for="Booking.StartTime" placeholder="00:00" />
     <input type="time" asp-for="Booking.EndTime" placeholder="00:00" />
     <input type="submit" value="Gem">
 </form>
-@foreach (var booking in Model.BookingGrid)
+@foreach (var booking in Model.Bookings)
 {
     <div class="card">
         <div class="card__bg">
             <div class="card-body">
                 <h5 class="card-title">@booking.Name</h5>
                 <p class="card-text">
+                    Beskrivelse af booking: @booking.Description<br/>
                     Bruger: @booking.User<br />
                     Start: @booking.StartTime<br />
                     Slut: @booking.StartTime<br />
