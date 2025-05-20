@@ -3,6 +3,35 @@
 @{
    <h1>Dyre Internat</h1>
 }
+<h1>Vores blog!</h1>
+<form method="post" enctype="multipart/form-data">
+    <input type="number" asp-for="NewBlog.BlogID" placeholder="ID" />
+    <input type="text" asp-for="NewBlog.Title" placeholder="Titel" />
+    <input type="text" asp-for="NewBlog.Description" placeholder="Brødtekst" />
+    <input type="text" asp-for="NewBlog.Author" placeholder="Forfatter" />
+    <input type="submit" value="Gem">
+</form>
+@if (Model.Blogs.Count == 0)
+{
+    <p>Der er ingen opdateringer i vores blog på nuværende tidspunkt.</p>
+}
+else
+{
+    <ul>
+        @foreach (var blog in Model.Blogs)
+        {
+            <li>
+                <strong>@blog.Title</strong><br />
+                @blog.Description<br />
+                Forfatter: @blog.Author<br />
+                <form method="post" asp-page-handler="Delete">
+                    <input type="hidden" name="animalID" value="@blog.BlogID" />
+                    <button type="submit">Slet</button>
+                </form>
+            </li>
+        }
+    </ul>
+}
 <h2>Aktiviteter</h2>
 
 @if (Model.Activities.Count == 0)

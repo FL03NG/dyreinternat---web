@@ -18,6 +18,9 @@ namespace dyreinternat___web
             builder.Services.AddSingleton<IBookingRepo, BookingJsonRepo>();// repo til bookinger
             builder.Services.AddSingleton<BookingService>(); // service til bookinger
 
+            builder.Services.AddSingleton<IBlogRepo, BlogJsonRepo>();// repo til blog
+            builder.Services.AddSingleton<BlogService>(); // service til blog
+
             // Add Razor Pages
             builder.Services.AddRazorPages();
 
