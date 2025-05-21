@@ -1,0 +1,31 @@
+﻿@page
+@model dyreinternat___web.Pages.Shared.LægelogModel
+@{
+}
+<form method="post" enctype="multipart/form-data">
+	<input type="text" asp-for="DocJournal.AnimalID" placeholder="ID" />
+	<input type="text" asp-for="DocJournal.Name" placeholder="Navn" />
+	<input type="text" asp-for="DocJournal.Race" placeholder="Race" />
+	<input type="text" asp-for="DocJournal.Species" placeholder="dyreart" />
+	<input type="number" asp-for="DocJournal.Treatment" placeholder="behandlingsbehov" />
+
+   
+
+	<input type="submit" value="Gem">
+</form>
+
+@foreach (var activity in Model.Lægelog)
+{
+    <div class="card">
+        <div class="card__bg">
+            <div class="card-body">
+                <h5 class="card-title">@docJournal.Name</h5>
+                <p class="card-text">
+                    Id: @docJournal.Id<br />
+                    Art: @docJournal.Species<br />
+                    Behandlingsbehov: @docJournal.Treatment<br />
+                </p>
+            </div>
+        </div>
+    </div>
+}
