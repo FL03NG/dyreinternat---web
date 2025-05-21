@@ -2,4 +2,29 @@
 @model dyreinternat___web.Pages.MemberGridModel
 @{
 }
-<h1>MemberGrid</h1>
+<form method="post" enctype="multipart/form-data">
+    <input type="number" asp-for="NewAccount.AccountID" placeholder="ID" />
+    <input type="text" asp-for="NewAccount.Name" placeholder="Navn" />
+    <input type="text" asp-for="NewAccount.Email" placeholder="Email" />
+    <input type="text" asp-for="NewAccount.Tlf" placeholder="Telefon nummer" />
+
+
+
+    <input type="submit" value="Gem">
+</form>
+
+@foreach (var account in Model.AccountGrid)
+{
+    <div class="card">
+        <div class="card__bg">
+            <div class="card-body">
+                <h5 class="card-title">@account.Name</h5>
+                <p class="card-text">
+                    Id: @account.AccountID<br />
+                    Email: @account.Email<br />
+                    Telefon nummer: @account.Tlf<br />
+                </p>
+            </div>
+        </div>
+    </div>
+}

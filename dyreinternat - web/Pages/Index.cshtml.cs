@@ -40,6 +40,16 @@ namespace dyreinternat___web.Pages
                 }
             }
         }
+        public IActionResult OnPostLikes(int activityID)
+        {
+            Activity activity = _activityService.Get(activityID);
+            if (activity != null)
+            {
+                activity.Tilmeldt++;
+                _activityService.Update(activity);
+            }
+            return RedirectToPage();
+        }
         //----------------------------------Blog------------------------------------------------//
 
         private readonly BlogService _blogService;

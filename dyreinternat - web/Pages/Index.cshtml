@@ -48,6 +48,13 @@ else
                 @activity.Description<br />
                 Start: @activity.StartTime<br />
                 Slut: @activity.EndTime
+                
+                <form method="post" asp-page-handler="Likes">
+                    <input type="hidden" name="ActivityID" value="@activity.ID" />
+                    <button class="btn btn-outline-success" title="Tilmeld">
+                        <i></i> Tilmeld (@activity.Tilmeldt)
+                    </button>
+                </form>
             </li>
         }
     </ul>

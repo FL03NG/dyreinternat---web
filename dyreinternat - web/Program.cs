@@ -21,8 +21,11 @@ namespace dyreinternat___web
             builder.Services.AddSingleton<IBlogRepo, BlogJsonRepo>();// repo til blog
             builder.Services.AddSingleton<BlogService>(); // service til blog
 
-            builder.Services.AddSingleton<IDocJournalRepo, DocJournalJsonRepo>();// repo til blog
-            builder.Services.AddSingleton<DocJournalService>(); // service til blog
+            builder.Services.AddSingleton<IDocJournalRepo, DocJournalJsonRepo>();// repo til DocJournal
+            builder.Services.AddSingleton<DocJournalService>(); // service til DocJournal
+
+            builder.Services.AddSingleton<IMemberRepo, MemberJsonRepo>();// repo til Member
+            builder.Services.AddSingleton<MemberService>(); // service til Member
 
             // Add Razor Pages
             builder.Services.AddRazorPages();
