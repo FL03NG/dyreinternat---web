@@ -1,17 +1,18 @@
 using dyreinternat___library.Services;
+using dyreinternat___library.Models;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace dyreinternat___web.Pages.Shared
+namespace dyreinternat___web.Pages
 {
-    public class LægelogModel : PageModel
+    public class DocJournalModel : PageModel
     {
         [BindProperty]
         public DocJournal DocJournal { get; set; } = new DocJournal(); // Aggregation
 
         [BindProperty]
-        public DocJournal NewDocJournal { get; set; } = new DocJournal(); // Tilføj ny aktivitet
+        public DocJournal NewDocJournal { get; set; } = new DocJournal(); // Tilføj ny lægelog
 
         private readonly DocJournalService _docJournalService;
         private readonly string _docJournalFilePathJson;
@@ -19,12 +20,12 @@ namespace dyreinternat___web.Pages.Shared
         public List<DocJournal> Lægelog { get; set; } = new List<DocJournal>();
 
         // Konstruktor – modtager service og miljø
-        public LægelogModel(DocJournalService docJournalService, IWebHostEnvironment environment)
+        public DocJournalModel(DocJournalService docJournalService, IWebHostEnvironment environment)
         {
             _docJournalService = docJournalService;
             _docJournalFilePathJson = Path.Combine(environment.ContentRootPath, "docJournal.json");
         }
-        // Kører ved GET – henter aktiviteter fra fil
+        // Kører ved GET – henter lægelogs fra fil
         public void OnGet()
         {
             List<DocJournal> allDocJournals = new List<DocJournal>();
@@ -42,6 +43,7 @@ namespace dyreinternat___web.Pages.Shared
                     }
                 }
             }
+            Lægelog = allDocJournals;
         }
 
         public IActionResult OnPost()
@@ -49,7 +51,7 @@ namespace dyreinternat___web.Pages.Shared
             // Gem i service (hvis den gør noget)
             _docJournalService.Add(NewDocJournal);
 
-            // Læs eksisterende aktiviteter
+            // Læs eksisterende lægelogs
             List<DocJournal> docJournals = new List<DocJournal>();
 
             if (System.IO.File.Exists(_docJournalFilePathJson))
@@ -65,14 +67,14 @@ namespace dyreinternat___web.Pages.Shared
                 }
             }
 
-            // Tilføj den nye aktivitet
-            //activities.Add(NewActivity);
+            
+
 
             // Skriv hele listen tilbage til filen
             string updatedJson = JsonSerializer.Serialize(docJournals, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_docJournalFilePathJson, updatedJson);
 
-            return RedirectToPage("/Lægelog"); // Genindlæs siden
+            return RedirectToPage(); // Genindlæs siden
         }
 
 

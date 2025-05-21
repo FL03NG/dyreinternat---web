@@ -1,3 +1,9 @@
-{
-
-}
+[
+ 
+  {
+    "Id": 1,
+    "Name": "Torben",
+    "Species": "Kat",
+    "Treatment": "br\u00E6kket ben"
+  }
+]
