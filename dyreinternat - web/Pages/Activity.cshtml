@@ -2,6 +2,7 @@
 @model dyreinternat___web.Pages.ActivityModel
 
 <form method="post" enctype="multipart/form-data">
+    <input type="text" asp-for="NewActivity.ID" placeholder="ID" />
     <input type="text" asp-for="NewActivity.Name" placeholder="Navn" />
     <input type="text" asp-for="NewActivity.Description" placeholder="Brødtekst" />
     <input type="time" asp-for="NewActivity.StartTime" placeholder="00:00" />

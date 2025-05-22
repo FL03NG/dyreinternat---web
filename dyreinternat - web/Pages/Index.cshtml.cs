@@ -99,9 +99,15 @@ namespace dyreinternat___web.Pages
 
             return RedirectToPage(); // Genindlæs siden
         }
-        public IActionResult OnPostDelete(int blogID)
+        public IActionResult OnPostDeleteBlog(int blogID)
         {
             _blogService.Delete(blogID);
+            return RedirectToPage(); // Refresh page
+        }
+        public IActionResult OnPostDeleteActivity(int activityID)
+        {
+            
+            _activityService.Delete(activityID);
             return RedirectToPage(); // Refresh page
         }
 

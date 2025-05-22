@@ -24,7 +24,7 @@ else
                 <strong>@blog.Title</strong><br />
                 @blog.Description<br />
                 Forfatter: @blog.Author<br />
-                <form method="post" asp-page-handler="Delete">
+                <form method="post" asp-page-handler="DeleteBlog">
                     <input type="hidden" name="animalID" value="@blog.BlogID" />
                     <button type="submit">Slet</button>
                 </form>
@@ -48,12 +48,17 @@ else
                 @activity.Description<br />
                 Start: @activity.StartTime<br />
                 Slut: @activity.EndTime
-                
+
                 <form method="post" asp-page-handler="Likes">
-                    <input type="hidden" name="ActivityID" value="@activity.ID" />
+                    <input type="hidden" name="activityID" value="@activity.ID" />
                     <button class="btn btn-outline-success" title="Tilmeld">
-                        <i></i> Tilmeld (@activity.Tilmeldt)
+                        Tilmeld (@activity.Tilmeldt)
                     </button>
+                </form>
+
+                <form method="post" asp-page-handler="DeleteActivity">
+                    <input type="hidden" name="activityID" value="@activity.ID" />
+                    <button type="submit">Slet</button>
                 </form>
             </li>
         }
