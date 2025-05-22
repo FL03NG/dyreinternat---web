@@ -1,0 +1,89 @@
+﻿body {
+}
+/* Form container styling */
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    /* Input field styling */
+    form input[type="text"],
+    form input[type="time"] {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        /* Input focus effect */
+        form input[type="text"]:focus,
+        form input[type="time"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+/* Placeholder styling */
+::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+}
+
+/* Submit button styling */
+form input[type="submit"] {
+    background: linear-gradient(135deg, #4a90e2, #2ecc71);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+    /* Submit button hover effect */
+    form input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+
+    /* Submit button active effect */
+    form input[type="submit"]:active {
+        transform: translateY(0);
+    }
+
+/* Time inputs container - for better alignment */
+.time-inputs {
+    display: flex;
+    gap: 15px;
+}
+
+    .time-inputs input {
+        flex: 1;
+    }
+
+/* Responsive design */
+@media (max-width: 650px) {
+    form {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .time-inputs {
+        flex-direction: column;
+        gap: 0;
+    }
+}

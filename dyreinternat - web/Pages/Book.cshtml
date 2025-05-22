@@ -4,32 +4,86 @@
 @{
 }
 
-<form method="post" enctype="multipart/form-data">
-    <input type="number" asp-for="NewBooking.AnimalID" placeholder="ID" />
-    <input type="text" asp-for="NewBooking.Name" placeholder="Navn på dyr" />
-    <input type="text" asp-for="NewBooking.Description" placeholder="Beskrivelse" />
-    <input type="text" asp-for="NewBooking.User" placeholder="Bruger" />
-    <input type="time" asp-for="NewBooking.StartTime" placeholder="00:00" />
-    <input type="time" asp-for="NewBooking.EndTime" placeholder="00:00" />
-    <input type="submit" value="Gem">
-</form>
-@foreach (var booking in Model.Bookings)
-{
-    <div class="card">
-        <div class="card__bg">
-            <div class="card-body">
-                <h5 class="card-title">@booking.Name</h5>
-                <p class="card-text">
-                    Beskrivelse af booking: @booking.Description<br/>
-                    Bruger: @booking.User<br />
-                    Start: @booking.StartTime<br />
-                    Slut: @booking.EndTime<br />
-                    <form method="post" asp-page-handler="Delete">
-                        <input type="hidden" name="animalID" value="@booking.AnimalID" />
-                        <button type="submit">Slet</button>
-                    </form>
-                </p>
+<!-- Bootstrap CSS (Tilføj i din head) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container py-5">
+    <!-- Booking Form -->
+    <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm mb-5">
+        <h2 class="mb-4 text-primary">Opret ny booking</h2>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="animalId" class="form-label">ID</label>
+                <input type="number" class="form-control" asp-for="NewBooking.AnimalID" placeholder="ID" id="animalId">
+            </div>
+
+            <div class="col-md-6">
+                <label for="animalName" class="form-label">Navn på dyr</label>
+                <input type="text" class="form-control" asp-for="NewBooking.Name" placeholder="Navn på dyr" id="animalName">
+            </div>
+
+            <div class="col-12">
+                <label for="description" class="form-label">Beskrivelse</label>
+                <input type="text" class="form-control" asp-for="NewBooking.Description" placeholder="Beskrivelse" id="description">
+            </div>
+
+            <div class="col-md-6">
+                <label for="user" class="form-label">Bruger</label>
+                <input type="text" class="form-control" asp-for="NewBooking.User" placeholder="Bruger" id="user">
+            </div>
+
+            <div class="col-md-3">
+                <label for="startTime" class="form-label">Start tid</label>
+                <input type="time" class="form-control" asp-for="NewBooking.StartTime" placeholder="00:00" id="startTime">
+            </div>
+
+            <div class="col-md-3">
+                <label for="endTime" class="form-label">Slut tid</label>
+                <input type="time" class="form-control" asp-for="NewBooking.EndTime" placeholder="00:00" id="endTime">
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    <i class="bi bi-save me-2"></i>Gem booking
+                </button>
             </div>
         </div>
+    </form>
+
+    <!-- Booking Cards -->
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var booking in Model.Bookings)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="card-title text-primary mb-3">@booking.Name</h5>
+                            <span class="badge bg-success">Aktiv</span>
+                        </div>
+
+                        <div class="card-text mb-3">
+                            <p class="mb-2"><strong>Beskrivelse:</strong> @booking.Description</p>
+                            <p class="mb-2"><strong>Bruger:</strong> @booking.User</p>
+                            <p class="mb-2"><strong>Tidspunkt:</strong> @booking.StartTime - @booking.EndTime</p>
+                        </div>
+
+                        <form method="post" asp-page-handler="Delete" class="mt-auto">
+                            <input type="hidden" name="animalID" value="@booking.AnimalID" />
+                            <button type="submit" class="btn btn-outline-danger w-100">
+                                <i class="bi bi-trash me-2"></i>Slet booking
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>
+
+<!-- Bootstrap Icons (Tilføj i din head) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<!-- Bootstrap JS Bundle with Popper (Tilføj før </body>) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

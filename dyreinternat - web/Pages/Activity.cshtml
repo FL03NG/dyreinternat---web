@@ -1,11 +1,16 @@
 ﻿@page
 @model dyreinternat___web.Pages.ActivityModel
 
+
 <form method="post" enctype="multipart/form-data">
     <input type="text" asp-for="NewActivity.Name" placeholder="Navn" />
     <input type="text" asp-for="NewActivity.Description" placeholder="Brødtekst" />
-    <input type="time" asp-for="NewActivity.StartTime" placeholder="00:00" />
-    <input type="time" asp-for="NewActivity.EndTime" placeholder="00:00" />
+
+    <div class="time-inputs">
+        <input type="time" asp-for="NewActivity.StartTime" placeholder="00:00" />
+        <input type="time" asp-for="NewActivity.EndTime" placeholder="00:00" />
+    </div>
+
     <input type="submit" value="Gem">
 </form>
 
