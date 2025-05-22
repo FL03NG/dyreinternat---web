@@ -3,6 +3,8 @@ using dyreinternat___library.Models;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using dyreinternat___library.Repository;
+using System.Diagnostics;
 
 namespace dyreinternat___web.Pages
 {
@@ -23,7 +25,7 @@ namespace dyreinternat___web.Pages
         public DocJournalModel(DocJournalService docJournalService, IWebHostEnvironment environment)
         {
             _docJournalService = docJournalService;
-            _docJournalFilePathJson = Path.Combine(environment.ContentRootPath, "docJournal.json");
+            _docJournalFilePathJson = Path.Combine(environment.ContentRootPath, "DocJournal.json");
         }
         // Kører ved GET – henter lægelogs fra fil
         public void OnGet()
@@ -43,40 +45,37 @@ namespace dyreinternat___web.Pages
                     }
                 }
             }
+
             Lægelog = allDocJournals;
         }
 
         public IActionResult OnPost()
         {
-            // Gem i service (hvis den gør noget)
+            // Tilføj ny journal
             _docJournalService.Add(NewDocJournal);
 
-            // Læs eksisterende lægelogs
-            List<DocJournal> docJournals = new List<DocJournal>();
+            // Hent opdateret liste fra servicen
+            List<DocJournal> updatedList = _docJournalService.GetAll();
 
-            if (System.IO.File.Exists(_docJournalFilePathJson))
-            {
-                string jsonContent = System.IO.File.ReadAllText(_docJournalFilePathJson);
-                if (!string.IsNullOrWhiteSpace(jsonContent))
-                {
-                    List<DocJournal>? deserialized = JsonSerializer.Deserialize<List<DocJournal>>(jsonContent);
-                    if (deserialized != null)
-                    {
-                        docJournals = deserialized;
-                    }
-                }
-            }
-
-            
-
-
-            // Skriv hele listen tilbage til filen
-            string updatedJson = JsonSerializer.Serialize(docJournals, new JsonSerializerOptions { WriteIndented = true });
+            // Gem den til filen
+            string updatedJson = JsonSerializer.Serialize(updatedList, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_docJournalFilePathJson, updatedJson);
 
-            return RedirectToPage(); // Genindlæs siden
+            return RedirectToPage(); // Opdatér visningen
         }
 
+
+        public IActionResult OnPostDelete(int DocJournalID)
+        {
+            _docJournalService.Delete(DocJournalID);
+
+            List<DocJournal> updatedList = _docJournalService.GetAll();
+
+            string updatedJson = JsonSerializer.Serialize(updatedList, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(_docJournalFilePathJson, updatedJson);
+
+            return RedirectToPage();
+        }
 
     }
 }
