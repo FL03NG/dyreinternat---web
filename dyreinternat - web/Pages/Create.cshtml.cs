@@ -33,23 +33,29 @@ namespace dyreinternat___web.Pages
 
         public IActionResult OnPost()
         {
-            if (ImageFile != null && ImageFile.Length > 0) //checks if a file is uploaded and is not empty
+            try
             {
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName); // Creates a unique name to avoid the same name
-                string filePath = Path.Combine(_env.WebRootPath, "Img", fileName);
-
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                if (ImageFile != null && ImageFile.Length > 0) //checks if a file is uploaded and is not empty
                 {
-                    ImageFile.CopyTo(stream);
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName); // Creates a unique name to avoid the same name
+                    string filePath = Path.Combine(_env.WebRootPath, "Img", fileName);
+
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+
+                    // Save relative path in the JSON
+                    Animal.ImagePath = fileName;
                 }
-
-                // Save relative path in the JSON
-                Animal.ImagePath = fileName;
             }
+            catch (FileNotFoundException ex)
+            {
 
-            Debug.WriteLine("test");
-            _animalService.Add(Animal);
-
+                Debug.WriteLine("test");
+                _animalService.Add(Animal);
+                
+            }
             return RedirectToPage("/AnimalsGrid");
         }
     }
