@@ -136,7 +136,7 @@
 
     <form method="post" enctype="multipart/form-data">
         <label for="Id">ID</label>
-        <input type="number" asp-for="NewDocJournal.Id" placeholder="ID" id="Id" />
+        <input type="number" asp-for="NewDocJournal.DocJournalID" placeholder="ID" id="Id" />
 
         <label for="Name">Navn</label>
         <input type="text" asp-for="NewDocJournal.Name" placeholder="Navn" id="Name" />
@@ -158,7 +158,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@docJournal.Name</h5>
                         <p class="card-text">
-                            <strong>ID:</strong> @docJournal.Id<br />
+                            <strong>ID:</strong> @docJournal.DocJournalID<br />
                             <strong>Art:</strong> @docJournal.Species<br />
                             <strong>Behandlingsbehov:</strong> @docJournal.Treatment<br />
                         </p>
