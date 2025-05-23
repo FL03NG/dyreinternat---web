@@ -40,7 +40,7 @@ namespace dyreinternat___web.Pages
                 }
             }
         }
-        public IActionResult OnPostLikes(int activityID)
+        public IActionResult OnPostJoin(int activityID)
         {
             Activity activity = _activityService.Get(activityID);
             if (activity != null)

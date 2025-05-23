@@ -76,5 +76,16 @@ namespace dyreinternat___web.Pages
 
             return RedirectToPage(); // Genindlæs siden
         }
+        public IActionResult OnPostDelete(int accountID)
+        {
+            _accountService.Delete(accountID);
+
+            List<Account> updatedList = _accountService.GetAll();
+
+            string updatedJson = JsonSerializer.Serialize(updatedList, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(_accountFilePathJson, updatedJson);
+
+            return RedirectToPage();
+        }
     }
 }
