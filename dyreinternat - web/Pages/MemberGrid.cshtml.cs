@@ -9,7 +9,7 @@ namespace dyreinternat___web.Pages
     public class MemberGridModel : PageModel
     {
         [BindProperty]
-        public Account Account { get; set; } = new Account(); // Aggregation
+        public Account Account { get; set; } = new Account(); // new = Composition
 
         [BindProperty]
         public Account NewAccount { get; set; } = new Account(); // Tilføj ny lægelog
@@ -75,6 +75,11 @@ namespace dyreinternat___web.Pages
             System.IO.File.WriteAllText(_accountFilePathJson, updatedJson);
 
             return RedirectToPage(); // Genindlæs siden
+        }
+        public IActionResult OnPostDelete(int accountID)
+        {
+            _accountService.Delete(accountID);
+            return RedirectToPage(); // Refresh page
         }
     }
 }

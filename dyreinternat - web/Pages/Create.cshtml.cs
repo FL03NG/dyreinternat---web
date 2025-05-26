@@ -33,8 +33,7 @@ namespace dyreinternat___web.Pages
 
         public IActionResult OnPost()
         {
-            try
-            {
+            
                 if (ImageFile != null && ImageFile.Length > 0) //checks if a file is uploaded and is not empty
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName); // Creates a unique name to avoid the same name
@@ -48,14 +47,13 @@ namespace dyreinternat___web.Pages
                     // Save relative path in the JSON
                     Animal.ImagePath = fileName;
                 }
-            }
-            catch (FileNotFoundException ex)
-            {
+            
+            
 
                 Debug.WriteLine("test");
                 _animalService.Add(Animal);
                 
-            }
+            
             return RedirectToPage("/AnimalsGrid");
         }
     }

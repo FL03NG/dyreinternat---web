@@ -253,6 +253,12 @@
                                 <span class="detail-label">Telefon:</span>
                                 <span class="detail-value">@account.Tlf</span>
                             </div>
+                            <form method="post" asp-page-handler="Delete" class="mt-auto">
+                                <input type="hidden" name="accountID" value="@account.AccountID" />
+                                <button type="submit" class="btn btn-outline-danger w-100">
+                                    <i class="bi bi-trash me-2"></i>Slet medlem
+                                </button>
+                            </form>
                         </div>
                     </div>
                 }

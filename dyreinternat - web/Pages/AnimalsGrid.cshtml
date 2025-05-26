@@ -55,6 +55,10 @@
                                 <span>Størrelse: @animal.Size Kg</span><br />
                                 Køn: @animal.Gender
                             </p>
+                            <form method="post" asp-page-handler="Delete" class="ms-3">
+                                <input type="hidden" name="animalID" value="@animal.AnimalID" />
+                                <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                            </form>
                         </div>
                     </div>
                 </div>

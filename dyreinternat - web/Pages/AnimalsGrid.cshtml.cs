@@ -2,6 +2,7 @@ using dyreinternat___library.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using dyreinternat___library.Services;
 
 namespace dyreinternat___web.Pages
 {
@@ -12,11 +13,13 @@ namespace dyreinternat___web.Pages
 
         // Sti til JSON-filen med alle dyrene
         private readonly string _animalFilePathJson;
+        private readonly AnimalService _animalService;
 
         // Constructor – sætter filstien ud fra projektets rodmappe
-        public AnimalsGridModel(IWebHostEnvironment environment)
+        public AnimalsGridModel(IWebHostEnvironment environment, AnimalService animalService)
         {
             _animalFilePathJson = Path.Combine(environment.ContentRootPath, "Animal.Json");
+            _animalService = animalService;
         }
 
         // Brugeren kan søge efter navn og filtrere på dyretype
@@ -35,6 +38,7 @@ namespace dyreinternat___web.Pages
         {
             // Liste til at holde alle læste dyr
             List<Animal> allAnimals = new List<Animal>();
+            Animal = _animalService.GetAll();
 
             // Hvis JSON-filen findes, læs og konverter den til en liste
             if (System.IO.File.Exists(_animalFilePathJson))
@@ -73,6 +77,7 @@ namespace dyreinternat___web.Pages
         {
             // Læs eksisterende liste
             List<Animal> animals = new List<Animal>();
+            _animalService.Add(NewAnimal);
 
             if (System.IO.File.Exists(_animalFilePathJson))
             {
@@ -88,7 +93,7 @@ namespace dyreinternat___web.Pages
             }
 
             // Tilføj det nye dyr fra formularen
-            animals.Add(NewAnimal);
+            //animals.Add(NewAnimal);
 
             // Gem den opdaterede liste tilbage til filen
             string updatedJson = JsonSerializer.Serialize(animals, new JsonSerializerOptions { WriteIndented = true });
@@ -96,6 +101,11 @@ namespace dyreinternat___web.Pages
 
             // Genindlæs siden med opdateret liste
             return RedirectToPage();
+        }
+        public IActionResult OnPostDelete(int animalID)
+        {
+            _animalService.Delete(animalID);
+            return RedirectToPage(); // Refresh page
         }
     }
 }

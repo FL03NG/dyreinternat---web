@@ -17,7 +17,7 @@ namespace dyreinternat___web.Pages
         private readonly DocJournalService _docJournalService;
         private readonly string _docJournalFilePathJson;
 
-        public List<DocJournal> Lægelog { get; set; } = new List<DocJournal>();
+        public List<DocJournal> DocJournalGrid { get; set; } = new List<DocJournal>();
 
         // Konstruktor – modtager service og miljø
         public DocJournalModel(DocJournalService docJournalService, IWebHostEnvironment environment)
@@ -43,7 +43,7 @@ namespace dyreinternat___web.Pages
                     }
                 }
             }
-            Lægelog = allDocJournals;
+            DocJournalGrid = allDocJournals;
         }
 
         public IActionResult OnPost()
@@ -76,7 +76,11 @@ namespace dyreinternat___web.Pages
 
             return RedirectToPage(); // Genindlæs siden
         }
-
+        public IActionResult OnPostDelete(int docJournalID)
+        {
+            _docJournalService.Delete(docJournalID);
+            return RedirectToPage(); // Refresh page
+        }
 
     }
 }
