@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"Name":"skolefest","Description":"kom til skolefest","StartTime":"2025-05-22T14:00:00","EndTime":"2025-05-22T17:00:00","Tilmeldt":5,"ID":0},{"Name":"G\u00E5tur med torben","Description":"hyggetur","StartTime":"2025-05-23T05:00:00","EndTime":"2025-05-23T06:00:00","Tilmeldt":5,"ID":1}]
+=======
+[{"Name":"hej","Description":"Yoo","StartTime":"2025-05-19T01:01:00","EndTime":"2025-05-19T02:02:00","Tilmeldt":15,"ID":0},{"Name":"jpasdpk\u00E5ads","Description":"l\u00E6km\u00E6l","StartTime":"2025-05-25T04:00:00","EndTime":"2025-05-25T00:04:00","Tilmeldt":2,"ID":1},{"Name":"hej","Description":"asdl\u00E6adslk","StartTime":"2025-05-25T00:04:00","EndTime":"2025-05-25T00:03:00","Tilmeldt":4,"ID":2}]
+>>>>>>> 207d1e408a45d746155b62dfccc549a31155619e

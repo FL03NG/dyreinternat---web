@@ -1,8 +1,21 @@
 [
   {
-    "DocJournalID": 0,
-    "Name": "Egon",
-    "Species": "ddd",
-    "Treatment": "ddd"
+    "Id": 1,
+    "Name": "Torben",
+    "Species": "Kat",
+    "Treatment": "br\u00E6kket ben"
+  },
+  {
+    "Id": 1,
+    "Name": "Torben",
+    "Species": "kat",
+    "Treatment": "Snoop Dogg skal tjekkes for rabies og en l\u00E6ge bes\u00F8g er booket d: 28-05-2025"
+  },
+
+  {
+    "Id": 2,
+    "Name": "Snoop dogg ",
+    "Species": "kat",
+    "Treatment": "Skal vaccineres. L\u00E6gebes\u00F8g bestilt d:  28-06-2025 "
   }
 ]
