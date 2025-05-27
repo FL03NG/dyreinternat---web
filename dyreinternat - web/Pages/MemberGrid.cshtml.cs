@@ -6,17 +6,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace dyreinternat___web.Pages
 {
+    // PageModel til visning og oprettelse af medlemmer (Account)
     public class MemberGridModel : PageModel
     {
+        // Binding til eksisterende konto
         [BindProperty]
         public Account Account { get; set; } = new Account(); // new = Composition
 
+        // Binding til ny konto fra formular
         [BindProperty]
         public Account NewAccount { get; set; } = new Account(); // Tilføj ny lægelog
 
+        // Service til håndtering af konto-data
         private readonly MemberService _accountService;
+
+        // Sti til JSON-filen med medlemmer
         private readonly string _accountFilePathJson;
 
+        // Liste over konti der vises på siden
         public List<Account> AccountGrid { get; set; } = new List<Account>();
 
         // Konstruktor – modtager service og miljø
@@ -25,7 +32,8 @@ namespace dyreinternat___web.Pages
             _accountService = accountService;
             _accountFilePathJson = Path.Combine(environment.ContentRootPath, "Member.json");
         }
-        // Kører ved GET – henter lægelogs fra fil
+
+        // GET-metode – henter konti fra JSON-fil og viser dem
         public void OnGet()
         {
             List<Account> allAccounts = new List<Account>();
@@ -43,15 +51,17 @@ namespace dyreinternat___web.Pages
                     }
                 }
             }
+
             AccountGrid = allAccounts;
         }
 
+        // POST-metode – tilføjer ny konto og gemmer opdateret liste
         public IActionResult OnPost()
         {
-            // Gem i service (hvis den gør noget)
+            // Tilføj konto via service
             _accountService.Add(NewAccount);
 
-            // Læs eksisterende lægelogs
+            // Læs eksisterende konti fra fil
             List<Account> accounts = new List<Account>();
 
             if (System.IO.File.Exists(_accountFilePathJson))
@@ -67,15 +77,14 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-
-
-
-            // Skriv hele listen tilbage til filen
+            // Gem hele listen tilbage til filen
             string updatedJson = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_accountFilePathJson, updatedJson);
 
             return RedirectToPage(); // Genindlæs siden
         }
+
+        // POST-metode – sletter konto baseret på ID
         public IActionResult OnPostDelete(int accountID)
         {
             _accountService.Delete(accountID);

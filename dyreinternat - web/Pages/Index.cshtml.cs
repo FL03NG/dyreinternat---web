@@ -4,29 +4,57 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using dyreinternat___library.Models;
 using System.Text.Json;
 
-
 namespace dyreinternat___web.Pages
 {
+    // PageModel til forsiden, der viser aktiviteter og blogindlæg
     public class IndexModel : PageModel
     {
-        private readonly ActivityService _activityService; //giver adgang til aktivitetsdata
+        // Giver adgang til aktivitetsdata gennem servicelaget
+        private readonly ActivityService _activityService;
 
-        public IndexModel(ActivityService activityService, BlogService blogService, IWebHostEnvironment environment) //håndterer logik
+        // Giver adgang til blogdata gennem servicelaget
+        private readonly BlogService _blogService;
+
+        // Fuld sti til JSON-filen for blogs
+        private readonly string _blogFilePathJson;
+
+        // Liste over aktiviteter til visning
+        public List<Activity> Activities { get; set; } = new List<Activity>();
+
+        // Liste over blogs til visning
+        public List<Blog> Blogs { get; set; } = new List<Blog>();
+
+        // Binding til en blog (til oprettelse eller redigering)
+        [BindProperty]
+        public Blog Blog { get; set; } = new Blog(); // Aggregation
+
+        // Binding til ny blog fra formular
+        [BindProperty]
+        public Blog NewBlog { get; set; } = new Blog(); // Tilføj ny aktivitet
+
+        // Bruges til at vise alle blogs på siden (fx i et grid)
+        public List<Blog> BlogGrid { get; set; } = new List<Blog>();
+
+        // Konstruktor – modtager nødvendige services og miljødata
+        public IndexModel(ActivityService activityService, BlogService blogService, IWebHostEnvironment environment)
         {
             _activityService = activityService;
             _blogService = blogService;
-            _blogFilePathJson = Path.Combine(environment.ContentRootPath, "Blog.json"); //bygger stien til json filen
+            _blogFilePathJson = Path.Combine(environment.ContentRootPath, "Blog.json"); // Bygger stien til blogfilen
         }
 
-        public List<Activity> Activities { get; set; } = new List<Activity>(); //en property som indenholder listen af aktiviteter på siden
-
-        public void OnGet() //kører automatisk
+        // GET-metode – køres automatisk ved indlæsning af siden
+        public void OnGet()
         {
-            Activities = _activityService.GetAll(); //får fat i alle aktiviteterne igennem deres servicelag
-            Blogs = _blogService.GetAll(); //får fat i alle blogs igennem deres servicelag
-            List<Blog> allBlogs = new List<Blog>(); //en midlertidig liste til at holde de loadede blogs
+            // Hent aktiviteter og blogs via deres services
+            Activities = _activityService.GetAll();
+            Blogs = _blogService.GetAll();
 
-            if (System.IO.File.Exists(_blogFilePathJson)) //tjekker om "Blog.Json" eksisterer. hvis den gør så læser den det og indsætter det ind i en liste af objekter
+            // Midlertidig liste til blogdata fra JSON
+            List<Blog> allBlogs = new List<Blog>();
+
+            // Læs og deserialiser blogdata fra JSON-filen
+            if (System.IO.File.Exists(_blogFilePathJson))
             {
                 string json = System.IO.File.ReadAllText(_blogFilePathJson);
 
@@ -40,41 +68,30 @@ namespace dyreinternat___web.Pages
                 }
             }
         }
-        public IActionResult OnPostJoin(int activityID) //håndterer tilmeldning af aktiviteter
+
+        // POST-metode – håndterer tilmelding til en aktivitet
+        public IActionResult OnPostJoin(int activityID)
         {
-            Activity activity = _activityService.Get(activityID); //finder aktiviteten fra id,
-            if (activity != null) //hvis den eksisterer,
+            // Find aktivitet ud fra ID
+            Activity activity = _activityService.Get(activityID);
+
+            // Hvis den findes, opdater deltagerantal og gem
+            if (activity != null)
             {
-                activity.Tilmeldt++; //tælder den "Tilmeldt" tælleren op.
-                _activityService.Update(activity); //opdaterer aktivitet
+                activity.Tilmeldt++;
+                _activityService.Update(activity);
             }
-            return RedirectToPage(); //genindlæser siden
+
+            return RedirectToPage(); // Genindlæs siden
         }
-        //----------------------------------Blog------------------------------------------------//
 
-        private readonly BlogService _blogService; //giver adgang til blogdata
-
-
-
-        public List<Blog> Blogs { get; set; } = new List<Blog>(); //en property som indenholder listen af blogs på siden
-
-        [BindProperty] //properties bundet til at forme data til at læse og skrive blogs
-        public Blog Blog { get; set; } = new Blog(); // Aggregation
-
-        [BindProperty]
-        public Blog NewBlog { get; set; } = new Blog(); // Tilføj ny aktivitet
-
-        
-        private readonly string _blogFilePathJson; //den fulde sti til Json filen for blogs
-
-        public List<Blog> BlogGrid { get; set; } = new List<Blog>(); //brugt til at vise alle blogs på indexsiden
-
-        public IActionResult OnPost() //håndterer generale blog opdateringer
+        // POST-metode – håndterer tilføjelse af ny blog
+        public IActionResult OnPost()
         {
-            // Gemmer ny blog i service (hvis den gør noget)
+            // Tilføj ny blog via service
             _blogService.Add(NewBlog);
 
-            // Læs eksisterende blogs fra json fil
+            // Læs eksisterende blogs fra JSON
             List<Blog> blogs = new List<Blog>();
 
             if (System.IO.File.Exists(_blogFilePathJson))
@@ -90,27 +107,28 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-            // Tilføj den nye aktivitet
-            //activities.Add(NewActivity);
+            // OBS: Tilføjelse til listen er udkommenteret
+            // blogs.Add(NewBlog);
 
-            // Skriv hele listen tilbage til filen
-            string updatedJson = JsonSerializer.Serialize(blogs, new JsonSerializerOptions { WriteIndented = true }); //udskriver den opdaterede blogliste og udskriver det i Json filen
+            // Gem den opdaterede liste til JSON-filen
+            string updatedJson = JsonSerializer.Serialize(blogs, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_blogFilePathJson, updatedJson);
 
             return RedirectToPage(); // Genindlæs siden
         }
-        public IActionResult OnPostDeleteBlog(int blogID) //sletter en blog ved brug af service
+
+        // POST-metode – sletter blog via ID
+        public IActionResult OnPostDeleteBlog(int blogID)
         {
             _blogService.Delete(blogID);
             return RedirectToPage(); // Genindlæs siden
         }
-        public IActionResult OnPostDeleteActivity(int activityID) //sletter en aktivitet ved brug af service
+
+        // POST-metode – sletter aktivitet via ID
+        public IActionResult OnPostDeleteActivity(int activityID)
         {
-            
             _activityService.Delete(activityID);
             return RedirectToPage(); // Genindlæs siden
         }
-
-
     }
 }

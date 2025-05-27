@@ -8,17 +8,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace dyreinternat___web.Pages
 {
+    // PageModel til visning og oprettelse af aktiviteter
     public class ActivityModel : PageModel
     {
+        // Aktivitet til binding (f.eks. visning)
         [BindProperty]
         public Activity Activity { get; set; } = new Activity(); // Aggregation
 
+        // Aktivitet der skal tilføjes
         [BindProperty]
         public Activity NewActivity { get; set; } = new Activity(); // Tilføj ny aktivitet
 
+        // Service til håndtering af aktiviteter
         private readonly ActivityService _activityService;
+
+        // Sti til JSON-filen med aktiviteter
         private readonly string _activityFilePathJson;
 
+        // Liste til visning af aktiviteter
         public List<Activity> ActivityGrid { get; set; } = new List<Activity>();
 
         // Konstruktor – modtager service og miljø
@@ -27,7 +34,8 @@ namespace dyreinternat___web.Pages
             _activityService = activityService;
             _activityFilePathJson = Path.Combine(environment.ContentRootPath, "Activity.json");
         }
-        // Kører ved GET – henter aktiviteter fra fil
+
+        // Håndterer GET-anmodninger – henter og deserialiserer aktiviteter fra fil
         public void OnGet()
         {
             List<Activity> allActivities = new List<Activity>();
@@ -47,12 +55,13 @@ namespace dyreinternat___web.Pages
             }
         }
 
+        // Håndterer POST-anmodninger – tilføjer ny aktivitet og opdaterer filen
         public IActionResult OnPost()
         {
-            // Gem i service (hvis den gør noget)
+            // Gem ny aktivitet via service
             _activityService.Add(NewActivity);
 
-            // Læs eksisterende aktiviteter
+            // Læs eksisterende aktiviteter fra fil
             List<Activity> activities = new List<Activity>();
 
             if (System.IO.File.Exists(_activityFilePathJson))
@@ -68,18 +77,14 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-            // Tilføj den nye aktivitet
-            //activities.Add(NewActivity);
+          
 
             // Skriv hele listen tilbage til filen
             string updatedJson = JsonSerializer.Serialize(activities, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_activityFilePathJson, updatedJson);
 
-            return RedirectToPage("/Index"); // Genindlæs siden
+            // Omdirigerer til forsiden
+            return RedirectToPage("/Index");
         }
-
-
-
-
     }
 }

@@ -6,6 +6,7 @@ using dyreinternat___library.Services;
 
 namespace dyreinternat___web.Pages
 {
+    // PageModel til visning, søgning og oprettelse af dyr
     public class AnimalsGridModel : PageModel
     {
         // Liste over alle dyr, der vises på siden
@@ -13,34 +14,39 @@ namespace dyreinternat___web.Pages
 
         // Sti til JSON-filen med alle dyrene
         private readonly string _animalFilePathJson;
+
+        // Service til håndtering af dyredata
         private readonly AnimalService _animalService;
 
-        // Constructor – sætter filstien ud fra projektets rodmappe
+        // Constructor – sætter filstien ud fra projektets rodmappe og initialiserer service
         public AnimalsGridModel(IWebHostEnvironment environment, AnimalService animalService)
         {
             _animalFilePathJson = Path.Combine(environment.ContentRootPath, "Animal.Json");
             _animalService = animalService;
         }
 
-        // Brugeren kan søge efter navn og filtrere på dyretype
+        // Filter til art/typen af dyr
         [BindProperty(SupportsGet = true)]
         public string FilterType { get; set; }
 
+        // Søgeterm til navnesøgning
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        // Dyr som brugeren kan tilføje
+        // Dyr som brugeren kan tilføje via formular
         [BindProperty]
         public Animal NewAnimal { get; set; } = new Animal();
 
-        // Kører når siden hentes (GET)
+        // GET-metode – henter og filtrerer dyr
         public void OnGet()
         {
-            // Liste til at holde alle læste dyr
+            // Liste med alle dyr
             List<Animal> allAnimals = new List<Animal>();
+
+            // Henter alle dyr fra service
             Animal = _animalService.GetAll();
 
-            // Hvis JSON-filen findes, læs og konverter den til en liste
+            // Læs fra JSON-filen hvis den eksisterer
             if (System.IO.File.Exists(_animalFilePathJson))
             {
                 string json = System.IO.File.ReadAllText(_animalFilePathJson);
@@ -55,7 +61,7 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-            // Filtrer dyr efter navn og art
+            // Filtrer efter søgeterm og type
             List<Animal> filteredAnimals = new List<Animal>();
             foreach (Animal a in allAnimals)
             {
@@ -68,17 +74,18 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-            // Opdater visningslisten
+            // Opdater visningslisten med filtrerede dyr
             Animal = filteredAnimals;
         }
 
-        // Kører når formularen postes (POST)
+        // POST-metode – tilføjer nyt dyr
         public IActionResult OnPost()
         {
-            // Læs eksisterende liste
-            List<Animal> animals = new List<Animal>();
+            // Tilføj nyt dyr via service
             _animalService.Add(NewAnimal);
 
+            // Hent eksisterende liste fra JSON
+            List<Animal> animals = new List<Animal>();
             if (System.IO.File.Exists(_animalFilePathJson))
             {
                 string jsonContent = System.IO.File.ReadAllText(_animalFilePathJson);
@@ -92,20 +99,22 @@ namespace dyreinternat___web.Pages
                 }
             }
 
-            // Tilføj det nye dyr fra formularen
+            // OBS: Tilføjelse til listen er udkommenteret
             //animals.Add(NewAnimal);
 
-            // Gem den opdaterede liste tilbage til filen
+            // Gem den opdaterede liste til JSON-filen
             string updatedJson = JsonSerializer.Serialize(animals, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(_animalFilePathJson, updatedJson);
 
-            // Genindlæs siden med opdateret liste
+            // Genindlæs siden
             return RedirectToPage();
         }
+
+        // POST-metode – slet et dyr ud fra ID
         public IActionResult OnPostDelete(int animalID)
         {
             _animalService.Delete(animalID);
-            return RedirectToPage(); // Refresh page
+            return RedirectToPage(); // Opdaterer siden
         }
     }
 }
